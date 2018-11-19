@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/register_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:textSize="54dp"
+        android:textAlignment="center"
+        android:text="Register" />
+
+    <EditText
+        android:id="@+id/register_firstname_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="First name"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/register_id"
+        android:inputType="textPersonName"
+        />
+
+    <EditText
+        android:id="@+id/register_lastname_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:hint="Last name"
+        android:layout_below="@+id/register_firstname_id"
+        android:inputType="textPersonName"
+         />
+
+    <EditText
+        android:id="@+id/register_email_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:hint="Email"
+        android:layout_below="@id/register_lastname_id"
+        android:inputType="textPersonName"
+         />
+
+    <EditText
+        android:id="@+id/register_username_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/register_email_id"
+        android:hint="Username"
+        android:inputType="textPersonName"
+         />
+
+    <EditText
+        android:id="@+id/register_password_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/register_username_id"
+        android:hint="********"
+        android:inputType="textPassword"
+        />
+
+    <Button
+        android:id="@+id/register_button_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_password_id"
+        android:layout_marginTop="40dp"
+        android:text="Register" />
+</RelativeLayout>

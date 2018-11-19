@@ -7,36 +7,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
+        android:id="@+id/tab_payment_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabMaxWidth="0dp"
         app:tabGravity="fill">
 
         <android.support.design.widget.TabItem
-            android:id="@+id/tab_item_in"
+            android:id="@+id/tab_payment_item_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/in"/>
 
         <android.support.design.widget.TabItem
-            android:id="@+id/tab_item_out"
+            android:id="@+id/tab_payment_item_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/out" />
     </android.support.design.widget.TabLayout>
 
     <ListView
-        android:id="@+id/list_in"
+        android:id="@+id/list_payment_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tab_layout"
+        android:layout_below="@+id/tab_payment_layout"
         tools:layout_editor_absoluteY="50dp" />
-    <Button
-        android:id="@+id/transfer_button_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add transfer"
-        android:layout_alignParentBottom="true"
-        />
 </RelativeLayout>
