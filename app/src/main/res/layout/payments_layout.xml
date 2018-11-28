@@ -32,4 +32,26 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tab_payment_layout"
         tools:layout_editor_absoluteY="50dp" />
+
+    <LinearLayout
+        android:id="@+id/payment_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/payment_add_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add coins"/>
+
+        <Button
+            android:id="@+id/payment_start_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start play"
+            />
+
+    </LinearLayout>
 </RelativeLayout>

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.app.FragmentManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +24,9 @@ import room.gaming.egamingroom.models.Transfer;
 
 public class PaymentsFragment extends Fragment {
    ListView listPayments;
+    private View addCoinsButton;
+    private View startPlayButton;
+
     public static PaymentsFragment newInstance() {
       return  new PaymentsFragment();
     }
@@ -32,6 +36,26 @@ public class PaymentsFragment extends Fragment {
   View view = inflater.inflate(R.layout.payments_layout, container, false);
 
         listPayments = view.findViewById(R.id.list_payment_in);
+        addCoinsButton = view.findViewById(R.id.payment_add_coins);
+        startPlayButton = view.findViewById(R.id.payment_start_play);
+
+        addCoinsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PaymentAddFragment dlg = PaymentAddFragment.newInstance();
+                FragmentManager fm = getActivity().getFragmentManager();
+                dlg.show(fm, "add_coins");
+            }
+        });
+
+        startPlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PaymentStartPlayFragment dlg = PaymentStartPlayFragment.newInstance();
+                FragmentManager fm = getActivity().getFragmentManager();
+                dlg.show(fm, "start_play");
+            }
+        });
   fillListData();
   return  view;
     }

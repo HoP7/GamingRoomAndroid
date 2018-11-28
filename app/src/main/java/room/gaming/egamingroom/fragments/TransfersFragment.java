@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import room.gaming.egamingroom.models.Transfer;
 
 public class TransfersFragment extends Fragment {
    ListView listTransfers;
+    private View addTransferButton;
+
     public static TransfersFragment newInstance() {
       return  new TransfersFragment();
     }
@@ -32,8 +35,22 @@ public class TransfersFragment extends Fragment {
   View view = inflater.inflate(R.layout.transfers_layout, container, false);
 
          listTransfers = view.findViewById(R.id.list_in);
+         addTransferButton = view.findViewById(R.id.transfer_button_id);
+         
+         addTransferButton.setOnClickListener(new View.OnClickListener(){
+             @Override
+             public void onClick(View v) {
+                 openAddTransferDialog();
+             }
+         });
   fillListData();
   return  view;
+    }
+
+    private void openAddTransferDialog() {
+        TransfersAddFragment dlg = TransfersAddFragment.newInstance();
+        FragmentManager fm = getActivity().getFragmentManager();
+                dlg.show(fm, "add_transfer");
     }
 
     private void fillListData() {
