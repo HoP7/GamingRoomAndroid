@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/navmenu_profil_id"
+        android:title="Profil"
+        android:icon="@drawable/ic_man_user"/>
+
+    <item android:id="@+id/navmenu_transfers_id"
+        android:title="Transfers"
+        android:icon="@drawable/ic_network"/>
+
+    <item android:id="@+id/navmenu_transactions_id"
+        android:title="Transactions"
+        android:icon="@drawable/ic_credit_cards_payment"/>
+
+    <item android:id="@+id/navmenu_logout_id"
+        android:title="Logout"
+        android:icon="@drawable/ic_gps_location_disabled"/>
+</menu>

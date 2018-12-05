@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@color/colorPrimaryDark">
+    <ImageView
+        android:id="@+id/navmenu_image_id"
+        android:layout_width="180dp"
+        android:layout_height="130dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/ic_headphones_and_microphone"/>
+   />
+    <TextView
+        android:id="@+id/navmenu_name_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kenan Gutic"
+        android:layout_below="@id/navmenu_image_id"/>
+    <TextView
+        android:id="@+id/navmenu_coins_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/navmenu_name_id"
+        android:text="70 coins"/>
+
+</RelativeLayout>
