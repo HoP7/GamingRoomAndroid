@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MyFragmentUtilities.OpenAsReplace(this,PaymentsFragment.newInstance());
+        MyFragmentUtilities.OpenAsReplace(this,TransfersFragment.newInstance());
     }
 
 
