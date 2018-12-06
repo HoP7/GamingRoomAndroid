@@ -40,11 +40,12 @@
                 android:textAlignment="textEnd"
                 android:layout_gravity="end"
                 android:text="100"/>
+
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/ic_monetization_on_black_24dp"/>
+                android:src="@drawable/ic_monetization_on_black_24dp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

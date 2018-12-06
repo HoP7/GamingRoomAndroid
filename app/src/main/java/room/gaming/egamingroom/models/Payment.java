@@ -6,3 +6,4 @@ public class Payment {
 public Date Datum;
 public  int Coins;
 }
+

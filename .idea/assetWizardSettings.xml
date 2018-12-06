@@ -20,9 +20,9 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="opacityPercent" value="47" />
-                            <entry key="outputName" value="ic_network" />
+                            <entry key="outputName" value="ic_hour" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="D:\Downloads\network.svg" />
+                            <entry key="sourceFile" value="D:\Downloads\hour.svg" />
                           </map>
                         </option>
                       </PersistentState>

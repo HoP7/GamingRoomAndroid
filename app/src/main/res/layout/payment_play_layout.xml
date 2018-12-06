@@ -25,5 +25,6 @@
         android:layout_below="@+id/payment_add_payment"
         android:layout_marginTop="30dp"
         android:hint="Generated code..."
+        android:text="Generated code: #as23!ez"
         android:inputType="text"/>
 </RelativeLayout>
