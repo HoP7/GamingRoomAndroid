@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.FragmentManager;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import room.gaming.egamingroom.models.Transfer;
 
 public class TransfersFragment extends Fragment {
    ListView listTransfers;
-    private View addTransferButton;
+    private FloatingActionButton addTransferButton;
 
     public static TransfersFragment newInstance() {
       return  new TransfersFragment();

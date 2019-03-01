@@ -2,6 +2,7 @@ package room.gaming.egamingroom;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,7 @@ import room.gaming.egamingroom.fragments.PaymentsFragment;
 import room.gaming.egamingroom.fragments.ProfileFragment;
 import room.gaming.egamingroom.fragments.TransfersFragment;
 import room.gaming.egamingroom.helper.MyFragmentUtilities;
+import room.gaming.egamingroom.helper.MySession;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +56,10 @@ break;
                     case R.id.navmenu_transactions_id: {
                         MyFragmentUtilities.OpenAsReplace(currentActivity, PaymentsFragment.newInstance());
                     break;}
+                    case R.id.navmenu_logout_id: {
+                        MySession.setUser(currentActivity, null);
+                        startActivity(new Intent(currentActivity, LoginActivity.class));
+                    }
                 }
 return  true;
             }

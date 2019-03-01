@@ -54,4 +54,19 @@
         android:layout_below="@id/profile_password_id"
         android:text="Edit" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Generate code for transfer"
+        android:layout_below="@id/profile_button_id"
+        android:layout_marginTop="10dp"
+        android:id="@+id/profile_generate_code_button"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/generated_code_text"
+        android:layout_below="@+id/profile_generate_code_button"
+        android:layout_marginTop="10dp"
+        android:text="#DGSAG43"
+        android:textColor="@color/primaryColor"/>
 </RelativeLayout>

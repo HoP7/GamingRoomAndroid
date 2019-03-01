@@ -1,66 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/content_id"
+  >
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/login_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="casual"
         android:text=" Gaming room"
         android:textSize="55dp"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="65dp" />
+         />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/login_info"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:text="Sign in with username and password..."
-        android:textSize="18dp"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="162dp" />
+        android:textSize="14dp"
+        android:layout_below="@+id/login_title"/>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/login_username_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="208dp" />
+        android:layout_below="@+id/login_info" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/login_password_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="271dp" />
+        android:layout_below="@+id/login_username_id" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/login_button_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="362dp" />
+        android:text="Login"
+        android:layout_below="@+id/login_password_id"
+        android:layout_marginTop="5dp"/>
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/login_creating_new_account"
         android:layout_width="173dp"
         android:layout_height="24dp"
+        android:textColor="@color/primaryLightColor"
         android:text="Create new account?"
         android:textSize="18dp"
-        tools:layout_editor_absoluteX="120dp"
-        tools:layout_editor_absoluteY="418dp" />
+        android:layout_below="@+id/login_button_id" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
