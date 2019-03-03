@@ -14,7 +14,7 @@ public class MySession {
 
         // User x= MyGson.build().fromJson(strJson, User.class);
         // return x;
-    return "";
+    return null;
     }
 
     public  static void setUser(Context context, String user){

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import room.gaming.egamingroom.fragments.PaymentsFragment;
 import room.gaming.egamingroom.fragments.ProfileFragment;
+import room.gaming.egamingroom.fragments.TopPlayersFragment;
 import room.gaming.egamingroom.fragments.TransfersFragment;
 import room.gaming.egamingroom.helper.MyFragmentUtilities;
 import room.gaming.egamingroom.helper.MySession;
@@ -56,6 +57,10 @@ break;
                     case R.id.navmenu_transactions_id: {
                         MyFragmentUtilities.OpenAsReplace(currentActivity, PaymentsFragment.newInstance());
                     break;}
+                    case R.id.navmenu_top_players_id: {
+                        MyFragmentUtilities.OpenAsReplace(currentActivity, TopPlayersFragment.newInstance());
+                        break;
+                    }
                     case R.id.navmenu_logout_id: {
                         MySession.setUser(currentActivity, null);
                         startActivity(new Intent(currentActivity, LoginActivity.class));

@@ -4,10 +4,13 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.app.FragmentManager;
@@ -28,6 +31,7 @@ public class PaymentsFragment extends Fragment {
     private View addCoinsButton;
     private View startPlayButton;
      ListView listPaymentsPlayGame;
+    private TabLayout tabLayout;
 
     public static PaymentsFragment newInstance() {
       return  new PaymentsFragment();
@@ -37,28 +41,47 @@ public class PaymentsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
   View view = inflater.inflate(R.layout.payments_layout, container, false);
 
-      //  listPayments = view.findViewById(R.id.list_payment_in);
+        listPayments = view.findViewById(R.id.list_payment_in);
         addCoinsButton = view.findViewById(R.id.payment_add_coins);
         startPlayButton = view.findViewById(R.id.payment_start_play);
 
-        listPaymentsPlayGame = view.findViewById(R.id.payment_start_play_list_id);
-
-        addCoinsButton.setOnClickListener(new View.OnClickListener() {
+        tabLayout = view.findViewById(R.id.tab_payment_layout);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View v) {
-                PaymentAddFragment dlg = PaymentAddFragment.newInstance();
-                FragmentManager fm = getActivity().getFragmentManager();
-                dlg.show(fm, "add_coins");
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()){
+                    case 0:
+                        listPayments.setAdapter(null);
+                        fillPlayGameData();
+                        break;
+                    case 1:
+                        listPaymentsPlayGame.setAdapter(null);
+                        fillListData();
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
+        listPaymentsPlayGame = view.findViewById(R.id.payment_start_play_list_id);
 
-        startPlayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PaymentStartPlayFragment dlg = PaymentStartPlayFragment.newInstance();
-                FragmentManager fm = getActivity().getFragmentManager();
-                dlg.show(fm, "start_play");
-            }
+        addCoinsButton.setOnClickListener(v -> {
+            PaymentAddFragment dlg = PaymentAddFragment.newInstance();
+            FragmentManager fm = getActivity().getFragmentManager();
+            dlg.show(fm, "add_coins");
+        });
+
+        startPlayButton.setOnClickListener(v -> {
+            PaymentStartPlayFragment dlg = PaymentStartPlayFragment.newInstance();
+            FragmentManager fm = getActivity().getFragmentManager();
+            dlg.show(fm, "start_play");
         });
         fillPlayGameData();
   return  view;

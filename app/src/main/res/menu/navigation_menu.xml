@@ -13,6 +13,10 @@
         android:title="Transactions"
         android:icon="@drawable/ic_credit_cards_payment"/>
 
+    <item android:id="@+id/navmenu_top_players_id"
+        android:title="Top players"
+        android:icon="@drawable/ic_accessibility_black_24dp"/>
+
     <item android:id="@+id/navmenu_logout_id"
         android:title="Logout"
         android:icon="@drawable/ic_gps_location_disabled"/>

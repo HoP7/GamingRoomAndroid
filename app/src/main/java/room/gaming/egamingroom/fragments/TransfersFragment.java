@@ -22,6 +22,7 @@ import java.util.Locale;
 
 import room.gaming.egamingroom.R;
 import room.gaming.egamingroom.models.Transfer;
+import room.gaming.egamingroom.models.User;
 
 public class TransfersFragment extends Fragment {
    ListView listTransfers;
@@ -58,7 +59,6 @@ public class TransfersFragment extends Fragment {
          final List<Transfer> data = new ArrayList<Transfer>();
          Transfer t = new Transfer();
          t.Coins = 100;
-         t.Ime ="Test";
         data.add(t);
         data.add(t);
         data.add(t);
@@ -98,7 +98,6 @@ public class TransfersFragment extends Fragment {
 
                 Transfer x = data.get(position);
 
-                nameParam.setText("Kenan Gutic");
                 coinsParam.setText("100");
                 dateParam.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
 
