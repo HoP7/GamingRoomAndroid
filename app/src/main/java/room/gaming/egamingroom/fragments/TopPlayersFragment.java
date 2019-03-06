@@ -2,6 +2,7 @@ package room.gaming.egamingroom.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,12 +12,18 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import room.gaming.egamingroom.R;
+import room.gaming.egamingroom.helper.MyConfig;
+import room.gaming.egamingroom.helper.MyGson;
+import room.gaming.egamingroom.helper.MyUrlConnection;
 import room.gaming.egamingroom.models.Payment;
 import room.gaming.egamingroom.models.TopPlayerDto;
+import room.gaming.egamingroom.models.TransferDto;
 import room.gaming.egamingroom.models.User;
 
 public class TopPlayersFragment extends Fragment {
@@ -30,12 +37,26 @@ public class TopPlayersFragment extends Fragment {
   View view = inflater.inflate(R.layout.top_players_layout, container, false);
   listTopPlayers = view.findViewById(R.id.top_players_list_id);
 
-  fillTopPlayersData();
+getTopPlayers();
   return  view;
     }
 
-    private void fillTopPlayersData() {
-        final List<TopPlayerDto> data = new ArrayList<>();
+    private void getTopPlayers() {
+        new AsyncTask<Void, Void, List<TopPlayerDto>>() {
+            @Override
+            protected List<TopPlayerDto> doInBackground(Void... voids) {
+                String strJson = MyUrlConnection.Get(MyConfig.BaseUrl + "api/User/topplayers/");
+                List<TopPlayerDto> x = MyGson.build().fromJson(strJson, new TypeToken<List<TopPlayerDto>>(){}.getType());
+                return x;
+            }
+            @Override
+            protected void onPostExecute(List<TopPlayerDto> x) {
+                fillTopPlayersData(x);
+            }
+        }.execute();
+    }
+    private void fillTopPlayersData(List<TopPlayerDto> data) {
+      /*  final List<TopPlayerDto> data = new ArrayList<>();
           TopPlayerDto t = new TopPlayerDto();
           User  u = new User();
           u.FirstName = "test";
@@ -51,7 +72,7 @@ public class TopPlayersFragment extends Fragment {
         data.add(t);
         data.add(t);
         data.add(t);
-        data.add(t);
+        data.add(t); */
 
         listTopPlayers.setAdapter(new BaseAdapter() {
             @Override
