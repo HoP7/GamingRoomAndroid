@@ -9,10 +9,12 @@ import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.URL;
 
+import room.gaming.egamingroom.models.MyApiResult;
+
 public class MyUrlConnection {
     private static final String TAG = "MyUrlConnection";
 
-    public  static String Get(String urlString) {
+    public  static MyApiResult Get(String urlString) {
         HttpURLConnection urlConnection = null;
 
         String result = null;
@@ -32,19 +34,22 @@ public class MyUrlConnection {
                 InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
 
                 String response = convertToString(inputStream);
-                return  response;
+                return MyApiResult.OK(response);
             } else {
+      InputStream inputStream = new BufferedInputStream(urlConnection.getErrorStream());
+      String response = convertToString(inputStream);
 
+      return  MyApiResult.Error(statusCode, response);
             }
         }catch (Exception e) {
             e.printStackTrace();
+            return  MyApiResult.Error(0, e.getMessage());
         }
         finally {
            if (urlConnection != null) {
                urlConnection.disconnect();
            }
         }
-        return result;
     }
 
     private static String convertToString(InputStream in) {

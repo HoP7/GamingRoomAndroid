@@ -1,6 +1,7 @@
 package room.gaming.egamingroom.fragments;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,21 +11,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import room.gaming.egamingroom.R;
+import room.gaming.egamingroom.helper.MyApiRequest;
+import room.gaming.egamingroom.helper.MyCallback;
 import room.gaming.egamingroom.helper.MyConfig;
 import room.gaming.egamingroom.helper.MyGson;
 import room.gaming.egamingroom.helper.MyUrlConnection;
-import room.gaming.egamingroom.models.Payment;
 import room.gaming.egamingroom.models.TopPlayerDto;
-import room.gaming.egamingroom.models.TransferDto;
-import room.gaming.egamingroom.models.User;
 
 public class TopPlayersFragment extends Fragment {
    ListView listTopPlayers;
@@ -42,38 +45,34 @@ getTopPlayers();
     }
 
     private void getTopPlayers() {
-        new AsyncTask<Void, Void, List<TopPlayerDto>>() {
+        MyCallback<ArrayList<TopPlayerDto>> myCallback = new MyCallback<ArrayList<TopPlayerDto>>(new TypeToken<ArrayList<TopPlayerDto>>(){}.getType()) {
+            @Override
+            public void Run(ArrayList<TopPlayerDto> x) {
+                fillTopPlayersData(x);
+            }
+        };
+        MyApiRequest.Get(getActivity(), "api/User/topplayers", myCallback, true);
+        /*new AsyncTask<Void, Void, List<TopPlayerDto>>() {
+            ProgressDialog progressDialog;
+            @Override
+            protected void onPreExecute() {
+                 progressDialog = ProgressDialog.show(getActivity(),"Loading", "Wait for data");
+            }
+
             @Override
             protected List<TopPlayerDto> doInBackground(Void... voids) {
                 String strJson = MyUrlConnection.Get(MyConfig.BaseUrl + "api/User/topplayers/");
-                List<TopPlayerDto> x = MyGson.build().fromJson(strJson, new TypeToken<List<TopPlayerDto>>(){}.getType());
+               List<TopPlayerDto> x = MyGson.build().fromJson(strJson, new TypeToken<ArrayList<TopPlayerDto>>(){}.getType());
                 return x;
             }
             @Override
             protected void onPostExecute(List<TopPlayerDto> x) {
                 fillTopPlayersData(x);
+                progressDialog.dismiss();
             }
-        }.execute();
+        }.execute(); */
     }
     private void fillTopPlayersData(List<TopPlayerDto> data) {
-      /*  final List<TopPlayerDto> data = new ArrayList<>();
-          TopPlayerDto t = new TopPlayerDto();
-          User  u = new User();
-          u.FirstName = "test";
-          u.LastName = "test";
-          t.Coins = 100;
-          t.User = u;
-
-        data.add(t);
-        data.add(t);
-        data.add(t);
-        data.add(t);
-        data.add(t);
-        data.add(t);
-        data.add(t);
-        data.add(t);
-        data.add(t); */
-
         listTopPlayers.setAdapter(new BaseAdapter() {
             @Override
             public int getCount() {
@@ -103,9 +102,9 @@ getTopPlayers();
 
                 TopPlayerDto x = data.get(position);
 
-                firstName.setText(x.User.FirstName);
-                lastName.setText(x.User.LastName);
-                coins.setText(String.valueOf(x.Coins));
+                firstName.setText(x.user.FirstName);
+                lastName.setText(x.user.LastName);
+                coins.setText(String.valueOf(x.coins));
 return view;
             }
         });
