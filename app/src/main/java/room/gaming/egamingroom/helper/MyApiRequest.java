@@ -35,7 +35,6 @@ public class MyApiRequest {
                     } else if (x.resultCode == 401) {
                        snackbar = Snackbar.make(parentLayout, "You are not logged in.Please login!", Snackbar.LENGTH_LONG);
                     }
-                    }
                     else {
                         snackbar = Snackbar.make(parentLayout, "Error: " + x.errorMessage, Snackbar.LENGTH_LONG);
                     }
