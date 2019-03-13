@@ -15,6 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.app.FragmentManager;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,8 +24,11 @@ import java.util.List;
 import java.util.Locale;
 
 import room.gaming.egamingroom.R;
+import room.gaming.egamingroom.helper.MyApiRequest;
+import room.gaming.egamingroom.helper.MyCallback;
 import room.gaming.egamingroom.models.Payment;
 import room.gaming.egamingroom.models.PaymentPlayGame;
+import room.gaming.egamingroom.models.TopPlayerDto;
 import room.gaming.egamingroom.models.Transfer;
 
 public class PaymentsFragment extends Fragment {
@@ -52,11 +57,23 @@ public class PaymentsFragment extends Fragment {
                 switch (tab.getPosition()){
                     case 0:
                         listPayments.setAdapter(null);
-                        fillPlayGameData();
+                        MyCallback<ArrayList<PaymentPlayGame>> myCallback = new MyCallback<ArrayList<PaymentPlayGame>>(new TypeToken<ArrayList<PaymentPlayGame>>(){}.getType()) {
+                            @Override
+                            public void Run(ArrayList<PaymentPlayGame> x) {
+                                fillPlayGameData(x);
+                            }
+                        };
+                        MyApiRequest.get(getActivity(), "api/Transaction", myCallback, true);
                         break;
                     case 1:
                         listPaymentsPlayGame.setAdapter(null);
-                        fillListData();
+                        MyCallback<ArrayList<Payment>> myCallbackPayments = new MyCallback<ArrayList<Payment>>(new TypeToken<ArrayList<Payment>>(){}.getType()) {
+                            @Override
+                            public void Run(ArrayList<Payment> x) {
+                                fillListData(x);
+                            }
+                        };
+                        MyApiRequest.get(getActivity(), "api/Transaction/payments", myCallbackPayments, true);
                         break;
                 }
             }
@@ -83,27 +100,17 @@ public class PaymentsFragment extends Fragment {
             FragmentManager fm = getActivity().getFragmentManager();
             dlg.show(fm, "start_play");
         });
-        fillPlayGameData();
+
+        MyCallback<ArrayList<PaymentPlayGame>> myCallback = new MyCallback<ArrayList<PaymentPlayGame>>(new TypeToken<ArrayList<PaymentPlayGame>>(){}.getType()) {
+            @Override
+            public void Run(ArrayList<PaymentPlayGame> x) {
+                fillPlayGameData(x);
+            }
+        };
+        MyApiRequest.get(getActivity(), "api/Transaction", myCallback, true);
   return  view;
     }
-    private void fillPlayGameData() {
-        final List<PaymentPlayGame> data = new ArrayList<>();
-        PaymentPlayGame payment = new PaymentPlayGame();
-        payment.Coins = 100;
-        payment.Hours = 2;
-        payment.Code = "#4fe$543";
-
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-
+    private void fillPlayGameData(List<PaymentPlayGame> data) {
         listPaymentsPlayGame.setAdapter(new BaseAdapter() {
             @Override
             public int getCount() {
@@ -128,31 +135,21 @@ public class PaymentsFragment extends Fragment {
                 }
                 TextView dateParam = view.findViewById(R.id.payment_start_play_date_id);
                 TextView coinsParam = view.findViewById(R.id.payment_start_play_coins_id);
+                TextView hoursParam = view.findViewById(R.id.payment_start_play_hours_id);
+                TextView codeParam = view.findViewById(R.id.payment_start_play_code_id);
 
                 PaymentPlayGame x = data.get(position);
 
-                coinsParam.setText("100");
-                dateParam.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
-
+                String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(x.transactionDate);
+                coinsParam.setText(String.valueOf(x.coins));
+                dateParam.setText(date);
+                codeParam.setText(String.valueOf(x.code));
+                hoursParam.setText(String.valueOf(x.hours));
                 return view;
             }
         });
     }
-    private void fillListData() {
-         final List<Payment> data = new ArrayList<Payment>();
-        Payment payment = new Payment();
-         payment.Coins = 100;
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-        data.add(payment);
-
+    private void fillListData(List<Payment> data) {
         listPayments.setAdapter(new BaseAdapter() {
             @Override
             public int getCount() {
@@ -180,8 +177,8 @@ public class PaymentsFragment extends Fragment {
 
                 Payment x = data.get(position);
 
-                coinsParam.setText("100");
-                dateParam.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()));
+                coinsParam.setText(String.valueOf(x.coins));
+                dateParam.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(x.date));
 
                 return view;
             }

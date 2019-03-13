@@ -5,19 +5,24 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.URL;
 
 import room.gaming.egamingroom.models.MyApiResult;
 
+
 public class MyUrlConnection {
+    public  enum HttpMethod{
+        GET,POST,HEAD,OPTIONS,PUT,DELETE,TRACE
+    }
     private static final String TAG = "MyUrlConnection";
 
-    public  static MyApiResult Get(String urlString) {
+    public  static MyApiResult request(String urlString, HttpMethod httpMethod, String postData, String contentType) {
         HttpURLConnection urlConnection = null;
 
-        String result = null;
+        String charset = "UTF-8";
 
         try {
             URL url = new URL(urlString);
@@ -25,10 +30,23 @@ public class MyUrlConnection {
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(false);
             urlConnection.setRequestProperty("Content-Type", "application/json");
-            urlConnection.setRequestMethod("GET");
-            urlConnection.connect();
+            urlConnection.setRequestProperty("Accept",  contentType);
+            urlConnection.setRequestProperty("Accept-Charset", charset);
+            urlConnection.setRequestProperty("authtoken", MySession.getUser().token );
+            urlConnection.setRequestMethod(httpMethod.toString());
+            urlConnection.setUseCaches(false);
+            urlConnection.setAllowUserInteraction(false);
 
-              int  statusCode = urlConnection.getResponseCode();
+
+              if (postData != null) {
+                  urlConnection.setDoOutput(true);
+                  byte[] outputBytes = postData.getBytes(charset);
+                  OutputStream os = urlConnection.getOutputStream();
+                  os.write(outputBytes);
+                  os.flush();
+                  os.close();
+              }
+            int  statusCode = urlConnection.getResponseCode();
 
             if (statusCode == 200) {
                 InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());

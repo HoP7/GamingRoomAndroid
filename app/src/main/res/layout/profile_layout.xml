@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/profile_email_id"
-        android:hint="********"
+        android:hint="Its used old password"
         android:inputType="textPassword"
         />
 
@@ -67,6 +67,6 @@
         android:id="@+id/generated_code_text"
         android:layout_below="@+id/profile_generate_code_button"
         android:layout_marginTop="10dp"
-        android:text="#DGSAG43"
+        android:text="Generated code"
         android:textColor="@color/primaryColor"/>
 </RelativeLayout>

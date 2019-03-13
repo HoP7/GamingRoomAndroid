@@ -3,17 +3,17 @@ package room.gaming.egamingroom.models;
 import java.util.List;
 
 public class User {
-    public int Id;
-    public  String FirstName;
-    public  String LastName;
-    public  String Email;
-    public String Username;
-    public String Password;
-    public String FullName;
-    public int AddedFromLastBonus;
-    public int Coins;
+    public int id;
+    public  String firstName;
+    public  String lastName;
+    public  String email;
+    public String username;
+    public String password;
+    public String fullName;
+    public int addedFromLastBonus;
+    public int coins;
+    public String token;
+    public List<Transfer> incoming;
 
-    public List<Transfer> Incoming;
-
-    public List<Transfer> Outgoing;
+    public List<Transfer> outgoing;
 }

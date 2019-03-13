@@ -3,8 +3,8 @@ package room.gaming.egamingroom.models;
 import java.util.Date;
 
 public class PaymentPlayGame {
-    public Date Datum;
-    public  int Coins;
-    public float Hours;
-    public String Code;
+    public Date transactionDate;
+    public  int coins;
+    public float hours;
+    public String code;
 }

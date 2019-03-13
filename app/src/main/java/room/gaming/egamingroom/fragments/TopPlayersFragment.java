@@ -51,26 +51,7 @@ getTopPlayers();
                 fillTopPlayersData(x);
             }
         };
-        MyApiRequest.Get(getActivity(), "api/User/topplayers", myCallback, true);
-        /*new AsyncTask<Void, Void, List<TopPlayerDto>>() {
-            ProgressDialog progressDialog;
-            @Override
-            protected void onPreExecute() {
-                 progressDialog = ProgressDialog.show(getActivity(),"Loading", "Wait for data");
-            }
-
-            @Override
-            protected List<TopPlayerDto> doInBackground(Void... voids) {
-                String strJson = MyUrlConnection.Get(MyConfig.BaseUrl + "api/User/topplayers/");
-               List<TopPlayerDto> x = MyGson.build().fromJson(strJson, new TypeToken<ArrayList<TopPlayerDto>>(){}.getType());
-                return x;
-            }
-            @Override
-            protected void onPostExecute(List<TopPlayerDto> x) {
-                fillTopPlayersData(x);
-                progressDialog.dismiss();
-            }
-        }.execute(); */
+        MyApiRequest.get(getActivity(), "api/User/topplayers", myCallback, true);
     }
     private void fillTopPlayersData(List<TopPlayerDto> data) {
         listTopPlayers.setAdapter(new BaseAdapter() {
@@ -102,8 +83,8 @@ getTopPlayers();
 
                 TopPlayerDto x = data.get(position);
 
-                firstName.setText(x.user.FirstName);
-                lastName.setText(x.user.LastName);
+                firstName.setText(x.user.firstName);
+                lastName.setText(x.user.lastName);
                 coins.setText(String.valueOf(x.coins));
 return view;
             }

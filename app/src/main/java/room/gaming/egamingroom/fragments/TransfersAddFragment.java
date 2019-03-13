@@ -12,6 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,11 +21,17 @@ import java.util.List;
 import java.util.Locale;
 
 import room.gaming.egamingroom.R;
+import room.gaming.egamingroom.helper.MyApiRequest;
+import room.gaming.egamingroom.helper.MyCallback;
+import room.gaming.egamingroom.helper.MySession;
+import room.gaming.egamingroom.models.AddCoinsDto;
+import room.gaming.egamingroom.models.Payment;
 import room.gaming.egamingroom.models.Transfer;
+import room.gaming.egamingroom.models.TransferDto;
 
 public class TransfersAddFragment extends DialogFragment {
-    private View txtUserCode;
-    private View txtCoins;
+    private TextView txtUserCode;
+    private TextView txtCoins;
     private View completeButton;
 
     public static TransfersAddFragment newInstance() {
@@ -38,19 +46,22 @@ txtUserCode = view.findViewById(R.id.transfer_add_user_code);
 txtCoins = view.findViewById(R.id.transfer_add_coins);
 
 completeButton = view.findViewById(R.id.transfer_add_user_code);
-completeButton.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        do_completeTransferClick();
-    }
-
-
-});
+completeButton.setOnClickListener(v -> do_completeTransferClick());
 
 return  view;
     }
 
     private void do_completeTransferClick() {
-        this.dismiss();
+        MyCallback<Transfer> myCallback = new MyCallback<Transfer>(new TypeToken<Transfer>(){}.getType()) {
+            @Override
+            public void Run(Transfer x) {
+                dismiss();
+            }
+        };
+        TransferDto transfer = new TransferDto();
+        transfer.Coins = Integer.parseInt(txtCoins.getText().toString());
+        transfer.UserCode = txtUserCode.getText().toString();
+        MyApiRequest.post(getActivity(), "api/Transfer",transfer, myCallback, false);
+
     }
 }

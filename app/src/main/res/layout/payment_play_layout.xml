@@ -12,7 +12,7 @@
         android:hint="Hours"/>
 
     <Button
-        android:id="@+id/payment_add_payment"
+        android:id="@+id/payment_play_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -20,9 +20,10 @@
         android:layout_below="@id/payment_hour_number"/>
 
     <TextView
+        android:id="@+id/payment_play_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/payment_add_payment"
+        android:layout_below="@+id/payment_play_button"
         android:layout_marginTop="30dp"
         android:hint="Generated code..."
         android:text="Generated code: #as23!ez"
