@@ -45,7 +45,7 @@ public class TransfersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
   View view = inflater.inflate(R.layout.transfers_layout, container, false);
 
-         listTransfers = view.findViewById(R.id.list_out);
+         listTransfers = view.findViewById(R.id.transfer_list_id);
          addTransferButton = view.findViewById(R.id.transfer_button_id);
          tabLayout = view.findViewById(R.id.tab_layout);
 
@@ -105,7 +105,7 @@ public class TransfersFragment extends Fragment {
     }
 
     private void fillListInData(List<Transfer> data) {
-        listInTransfers.setAdapter(new BaseAdapter() {
+        listTransfers.setAdapter(new BaseAdapter() {
             @Override
             public int getCount() {
                 return data.size();

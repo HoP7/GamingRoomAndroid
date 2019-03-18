@@ -1,6 +1,7 @@
 package room.gaming.egamingroom;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
                 MyCallback<User> myCallback = new MyCallback<User>(User.class) {
                     @Override
                     public void Run(User x) {
+                        startActivity(new Intent(currentActivity, LoginActivity.class));
                     }
                 };
                 User user = new User();

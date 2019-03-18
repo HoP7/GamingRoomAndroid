@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,21 +23,30 @@ import room.gaming.egamingroom.fragments.PaymentsFragment;
 import room.gaming.egamingroom.fragments.ProfileFragment;
 import room.gaming.egamingroom.fragments.TopPlayersFragment;
 import room.gaming.egamingroom.fragments.TransfersFragment;
+import room.gaming.egamingroom.helper.MyApiRequest;
 import room.gaming.egamingroom.helper.MyApp;
+import room.gaming.egamingroom.helper.MyCallback;
 import room.gaming.egamingroom.helper.MyFragmentUtilities;
 import room.gaming.egamingroom.helper.MySession;
+import room.gaming.egamingroom.models.LoginDto;
+import room.gaming.egamingroom.models.User;
 
 public class MainActivity extends AppCompatActivity {
-
+    ProgressBar progressBar;
+    TextView progressBarText;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
     private Activity currentActivity;
+    TextView fullName;
+    TextView coins;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApp.setCurrentActivity(this);
         setContentView(R.layout.activity_main);
         currentActivity = this;
+
         dl = (DrawerLayout)findViewById(R.id.activity_main);
         t = new ActionBarDrawerToggle(this, dl,R.string.Open, R.string.Close);
          dl.addDrawerListener(t);
@@ -46,10 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
         nv = (NavigationView)findViewById(R.id.nv);
         View header = nv.getHeaderView(0);
-        TextView fullName = header.findViewById(R.id.navmenu_name_id);
-        TextView coins = header.findViewById(R.id.navmenu_coins_id);
-        fullName.setText(MySession.getUser().fullName);
-        coins.setText(String.valueOf(MySession.getUser().coins) + " coins");
+         fullName = header.findViewById(R.id.navmenu_name_id);
+         coins = header.findViewById(R.id.navmenu_coins_id);
+        progressBar = (ProgressBar) header.findViewById(R.id.progressBar);
+        progressBarText = (TextView)header.findViewById(R.id.textView);
+   fillProfilInfo();
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -82,6 +93,20 @@ return  true;
 
         });
 
+
+    }
+    public void fillProfilInfo(){
+        MyCallback<User> m = new MyCallback<User>(User.class) {
+            @Override
+            public void Run(User x) {
+                fullName.setText(x.fullName);
+                coins.setText(String.valueOf(x.coins) + " coins");
+                progressBar.setProgress(x.addedFromLastBonus);
+                progressBarText.setText(x.addedFromLastBonus + "/" + 500);
+            }
+        };
+
+        MyApiRequest.get(currentActivity, "api/User/" + MySession.getUser().id, m, false);
 
     }
 

@@ -32,7 +32,7 @@ public class MyUrlConnection {
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept",  contentType);
             urlConnection.setRequestProperty("Accept-Charset", charset);
-            urlConnection.setRequestProperty("authtoken", MySession.getUser().token );
+            urlConnection.setRequestProperty("authtoken", MySession.getUser() != null ? MySession.getUser().token : "" );
             urlConnection.setRequestMethod(httpMethod.toString());
             urlConnection.setUseCaches(false);
             urlConnection.setAllowUserInteraction(false);

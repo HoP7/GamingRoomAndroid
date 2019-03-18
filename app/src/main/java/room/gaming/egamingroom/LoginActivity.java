@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import room.gaming.egamingroom.helper.MyApiRequest;
+import room.gaming.egamingroom.helper.MyApp;
 import room.gaming.egamingroom.helper.MyCallback;
 import room.gaming.egamingroom.helper.MySession;
 import room.gaming.egamingroom.models.LoginDto;

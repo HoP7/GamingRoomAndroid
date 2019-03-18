@@ -20,8 +20,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import room.gaming.egamingroom.MainActivity;
 import room.gaming.egamingroom.R;
 import room.gaming.egamingroom.helper.MyApiRequest;
+import room.gaming.egamingroom.helper.MyApp;
 import room.gaming.egamingroom.helper.MyCallback;
 import room.gaming.egamingroom.helper.MySession;
 import room.gaming.egamingroom.models.AddCoinsDto;
@@ -45,7 +47,7 @@ View view = inflater.inflate(R.layout.transfer_add_layout, container,false);
 txtUserCode = view.findViewById(R.id.transfer_add_user_code);
 txtCoins = view.findViewById(R.id.transfer_add_coins);
 
-completeButton = view.findViewById(R.id.transfer_add_user_code);
+completeButton = view.findViewById(R.id.transfer_add_transfer);
 completeButton.setOnClickListener(v -> do_completeTransferClick());
 
 return  view;
@@ -55,12 +57,16 @@ return  view;
         MyCallback<Transfer> myCallback = new MyCallback<Transfer>(new TypeToken<Transfer>(){}.getType()) {
             @Override
             public void Run(Transfer x) {
+                MainActivity a = (MainActivity)MyApp.getCurrentActivity();
+                a.fillProfilInfo();
                 dismiss();
             }
         };
         TransferDto transfer = new TransferDto();
-        transfer.Coins = Integer.parseInt(txtCoins.getText().toString());
+        String temp = txtCoins.getText().toString();
+        transfer.Coins = Integer.parseInt(!temp.isEmpty() ? txtCoins.getText().toString() : "0");
         transfer.UserCode = txtUserCode.getText().toString();
+        transfer.UserId = MySession.getUser().id;
         MyApiRequest.post(getActivity(), "api/Transfer",transfer, myCallback, false);
 
     }

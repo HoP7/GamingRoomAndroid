@@ -1,5 +1,6 @@
 package room.gaming.egamingroom.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,22 +12,30 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 
+import room.gaming.egamingroom.MainActivity;
 import room.gaming.egamingroom.R;
 import room.gaming.egamingroom.helper.MyApiRequest;
+import room.gaming.egamingroom.helper.MyApp;
 import room.gaming.egamingroom.helper.MyCallback;
+import room.gaming.egamingroom.helper.MyRunniable;
 import room.gaming.egamingroom.helper.MySession;
 import room.gaming.egamingroom.models.AddCoinsDto;
 import room.gaming.egamingroom.models.Payment;
 import room.gaming.egamingroom.models.Transaction;
 import room.gaming.egamingroom.models.TransactionDto;
 
+@SuppressLint("ValidFragment")
 public class PaymentStartPlayFragment extends DialogFragment {
     private View txtUserCode;
     private View txtCoins;
     private View completeButton;
+public  MyRunniable myRunniable;
+    public PaymentStartPlayFragment(MyRunniable myRunniable) {
+        this.myRunniable = myRunniable;
+    }
 
-    public static PaymentStartPlayFragment newInstance() {
-      return  new PaymentStartPlayFragment();
+    public static PaymentStartPlayFragment newInstance(MyRunniable myRunniable) {
+      return  new PaymentStartPlayFragment(myRunniable);
     }
     @Nullable
     @Override
@@ -40,6 +49,9 @@ View view = inflater.inflate(R.layout.payment_play_layout, container,false);
             MyCallback<String> myCallback = new MyCallback<String>(String.class) {
                 @Override
                 public void Run(String x) {
+                    MainActivity a = (MainActivity)MyApp.getCurrentActivity();
+                    a.fillProfilInfo();
+                    myRunniable.Run();
                   code.setText("Generated code: " + x);
                 }
             };

@@ -80,12 +80,14 @@ getTopPlayers();
                 TextView firstName = view.findViewById(R.id.top_player_firstName_id);
                 TextView lastName = view.findViewById(R.id.top_player_lastName_id);
                 TextView coins = view.findViewById(R.id.top_players_coins_id);
+TextView pos = view.findViewById(R.id.top_player_position);
 
                 TopPlayerDto x = data.get(position);
 
                 firstName.setText(x.user.firstName);
                 lastName.setText(x.user.lastName);
                 coins.setText(String.valueOf(x.coins));
+                pos.setText(String.valueOf(x.position));
 return view;
             }
         });

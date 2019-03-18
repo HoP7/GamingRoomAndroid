@@ -26,6 +26,7 @@ import java.util.Locale;
 import room.gaming.egamingroom.R;
 import room.gaming.egamingroom.helper.MyApiRequest;
 import room.gaming.egamingroom.helper.MyCallback;
+import room.gaming.egamingroom.helper.MyRunniable;
 import room.gaming.egamingroom.models.Payment;
 import room.gaming.egamingroom.models.PaymentPlayGame;
 import room.gaming.egamingroom.models.TopPlayerDto;
@@ -37,7 +38,7 @@ public class PaymentsFragment extends Fragment {
     private View startPlayButton;
      ListView listPaymentsPlayGame;
     private TabLayout tabLayout;
-
+  int currentTab = 0;
     public static PaymentsFragment newInstance() {
       return  new PaymentsFragment();
     }
@@ -45,7 +46,6 @@ public class PaymentsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
   View view = inflater.inflate(R.layout.payments_layout, container, false);
-
         listPayments = view.findViewById(R.id.list_payment_in);
         addCoinsButton = view.findViewById(R.id.payment_add_coins);
         startPlayButton = view.findViewById(R.id.payment_start_play);
@@ -56,24 +56,12 @@ public class PaymentsFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     case 0:
-                        listPayments.setAdapter(null);
-                        MyCallback<ArrayList<PaymentPlayGame>> myCallback = new MyCallback<ArrayList<PaymentPlayGame>>(new TypeToken<ArrayList<PaymentPlayGame>>(){}.getType()) {
-                            @Override
-                            public void Run(ArrayList<PaymentPlayGame> x) {
-                                fillPlayGameData(x);
-                            }
-                        };
-                        MyApiRequest.get(getActivity(), "api/Transaction", myCallback, true);
+                        currentTab = 0;
+                        callPayments();
                         break;
                     case 1:
-                        listPaymentsPlayGame.setAdapter(null);
-                        MyCallback<ArrayList<Payment>> myCallbackPayments = new MyCallback<ArrayList<Payment>>(new TypeToken<ArrayList<Payment>>(){}.getType()) {
-                            @Override
-                            public void Run(ArrayList<Payment> x) {
-                                fillListData(x);
-                            }
-                        };
-                        MyApiRequest.get(getActivity(), "api/Transaction/payments", myCallbackPayments, true);
+                        currentTab  = 1;
+                     callPlays();
                         break;
                 }
             }
@@ -90,17 +78,46 @@ public class PaymentsFragment extends Fragment {
         listPaymentsPlayGame = view.findViewById(R.id.payment_start_play_list_id);
 
         addCoinsButton.setOnClickListener(v -> {
-            PaymentAddFragment dlg = PaymentAddFragment.newInstance();
+            PaymentAddFragment dlg = PaymentAddFragment.newInstance(new MyRunniable(){
+                @Override
+                public void Run() {
+                    callPayments();
+                }
+            });
             FragmentManager fm = getActivity().getFragmentManager();
             dlg.show(fm, "add_coins");
         });
 
         startPlayButton.setOnClickListener(v -> {
-            PaymentStartPlayFragment dlg = PaymentStartPlayFragment.newInstance();
+            PaymentStartPlayFragment dlg = PaymentStartPlayFragment.newInstance(new MyRunniable(){
+                @Override
+                public void Run() {
+                    callPlays();
+                }
+            });
             FragmentManager fm = getActivity().getFragmentManager();
             dlg.show(fm, "start_play");
         });
 
+ callPayments();
+  return  view;
+    }
+    public void callPayments() {
+        if(this.currentTab == 1)
+            return;
+        listPaymentsPlayGame.setAdapter(null);
+        MyCallback<ArrayList<Payment>> myCallbackPayments = new MyCallback<ArrayList<Payment>>(new TypeToken<ArrayList<Payment>>(){}.getType()) {
+            @Override
+            public void Run(ArrayList<Payment> x) {
+                fillListData(x);
+            }
+        };
+        MyApiRequest.get(getActivity(), "api/Transaction/payments", myCallbackPayments, true);
+    }
+    public void callPlays(){
+        if(this.currentTab == 0)
+            return;
+        listPayments.setAdapter(null);
         MyCallback<ArrayList<PaymentPlayGame>> myCallback = new MyCallback<ArrayList<PaymentPlayGame>>(new TypeToken<ArrayList<PaymentPlayGame>>(){}.getType()) {
             @Override
             public void Run(ArrayList<PaymentPlayGame> x) {
@@ -108,7 +125,6 @@ public class PaymentsFragment extends Fragment {
             }
         };
         MyApiRequest.get(getActivity(), "api/Transaction", myCallback, true);
-  return  view;
     }
     private void fillPlayGameData(List<PaymentPlayGame> data) {
         listPaymentsPlayGame.setAdapter(new BaseAdapter() {
